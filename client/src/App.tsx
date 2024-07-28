@@ -7,7 +7,6 @@ import '/src/assets/css/index.css'
 
 function App() {
 
-
   return (
     <>
    <Chat/>

@@ -30,12 +30,10 @@ export default function Chat(){
     return (
         <>
             <div>{loading ?"Loading" :  text }</div>
-            <button onClick={callGemini}>Generate</button>
-            <input onChange={(e) => setValue(e.target.value)}></input>
-            
+
         <div className="flex w-full max-w-sm items-center space-x-2">
-          <Input type="email" placeholder="Email" />
-          <Button type="submit">Subscribe</Button>
+          <Input onChange={(e) => setValue(e.target.value)}  placeholder="Type Here..." />
+          <Button onClick={callGemini} type="submit">Generate</Button>
         </div>
         </>
     )
