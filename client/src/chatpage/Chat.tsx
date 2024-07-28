@@ -5,8 +5,9 @@ import { Input } from "@/components/ui/input"
 
 
 export default function Chat(){
+
     const [text , setText] = useState<string>("");
-    const [value , setValue] = useState<string | GenerateContentRequest | (string | Part)[]>("")
+    const [value , setValue] = useState<string[] | string >("")
     const [ loading , setLoading ] = useState<boolean>(false);
 
     const genAi = new GoogleGenerativeAI(import.meta.env.VITE_GEMINI_API);
@@ -23,19 +24,20 @@ export default function Chat(){
 
       }
 
-      const callGemini = ()=> {
+      const callGemini = (event : React.MouseEvent<HTMLButtonElement> )=> {
+        setValue("");
         generateFromGemini();
       }
 
     return (
         <>
         <section  className="w-[80%] border border-2 border-black p-4">
-            <div className="h-[90%]">
+            <div className="h-[90%]"> 
               {loading ?"Loading" :  text }
             </div>
 
         <div className="flex flex-row w-full  items-center justify-evenly h-[10%] gap-4">
-          <Input onChange={(e) => setValue(e.target.value)}  placeholder="Type Here..." />
+          <Input onChange={(e) => setValue(e.target.value)}  value={value} placeholder="Type Here..."  />
           <Button onClick={callGemini} type="submit">Generate</Button>
         </div>
 </section>
