@@ -29,12 +29,16 @@ export default function Chat(){
 
     return (
         <>
-            <div>{loading ?"Loading" :  text }</div>
+        <section  className="w-[80%] border border-2 border-black p-4">
+            <div className="h-[90%]">
+              {loading ?"Loading" :  text }
+            </div>
 
-        <div className="flex w-full max-w-sm items-center space-x-2">
+        <div className="flex flex-row w-full  items-center justify-evenly h-[10%] gap-4">
           <Input onChange={(e) => setValue(e.target.value)}  placeholder="Type Here..." />
           <Button onClick={callGemini} type="submit">Generate</Button>
         </div>
+</section>
         </>
     )
 }

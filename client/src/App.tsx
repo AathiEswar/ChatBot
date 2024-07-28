@@ -1,4 +1,5 @@
-import Chat from "./Chat"
+import Chat from "./chatpage/Chat"
+import ChatMain from "./chatpage/ChatMain"
 import '/src/assets/css/index.css' 
 
 
@@ -8,9 +9,9 @@ import '/src/assets/css/index.css'
 function App() {
 
   return (
-    <>
-   <Chat/>
-    </>
+    <section className="w-screen h-screen flex ">
+   <ChatMain/>
+    </section>
   )
 }
 
