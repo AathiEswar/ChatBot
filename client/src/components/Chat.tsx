@@ -6,28 +6,28 @@ export default function Chat(){
     const [value , setValue] = useState<string | GenerateContentRequest | (string | Part)[]>("")
     const [ loading , setLoading ] = useState<boolean>(false);
 
-    const genAi = new GoogleGenerativeAI("AIzaSyADNAF0oP34P4SYzrdmkExicOmTPhKvzZo");
+    const genAi = new GoogleGenerativeAI(import.meta.env.VITE_GEMINI_API);
 
     const model = genAi.getGenerativeModel({model: "gemini-1.5-flash"})
 
-     async function run(){
+     async function generateFromGemini(){
         setLoading(true);
         const result = await model.generateContent(value);
         const response = await result.response;
         const textAi = response.text();
-        setText(textAi);
+        setText(textAi)
         setLoading(false);
 
       }
 
-      const handle = ()=> {
-        run();
+      const callGemini = ()=> {
+        generateFromGemini();
       }
 
     return (
         <>
             <div>{loading ?"Loading" :  text }</div>
-            <button onClick={handle}>Click here</button>
+            <button onClick={callGemini}>Click here</button>
             <input onChange={(e) => setValue(e.target.value)}></input>
         </>
     )
