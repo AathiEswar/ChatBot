@@ -6,8 +6,9 @@ import { Input } from "@/components/ui/input"
 export default function Chat(){
 
     const [text , setText] = useState<string>("");
-    const [value , setValue] = useState<string[] | string >("")
+    const [value , setValue] = useState<string >("")
     const [ loading , setLoading ] = useState<boolean>(false);
+    const [textArray , setTextArray] = useState<string[]>([]);
 
     const genAi = new GoogleGenerativeAI(import.meta.env.VITE_GEMINI_API);
     const model = genAi.getGenerativeModel({model: "gemini-1.5-flash"})
@@ -19,6 +20,9 @@ export default function Chat(){
         const response = await result.response;
         const textAi = response.text();
         setText(textAi)
+        setTextArray((prev) => [...prev , value , textAi ]);
+        console.log(textAi);
+        
         setLoading(false);
 
       }
@@ -35,14 +39,21 @@ export default function Chat(){
 
     return (
         <>
-        <section  className="w-full sm:w-[80%] border border-2 border-black p-4">
-            <div className="h-[90%]"> 
-              {loading ?"Loading" :  text }
+        <section  className="w-full sm:w-[80%] border-0 border-primary p-4 bg-accent" >
+            <div className="h-[90%] text-white">
+              {textArray.length < 1 && !loading && "welcome"} 
+              {   textArray.map((item,index) => {
+                if(index % 2 == 0){
+                  return <div className="text-right p-2">{item}</div>
+                }
+                return <div className="p-2 w-[50%]">{item}</div>
+              })}
+              {loading && "Loading"}
             </div>
 
         <div className="flex flex-row w-full  items-center justify-evenly h-[10%] gap-4">
-          <Input onChange={(e) => setValue(e.target.value)}  value={value} placeholder="Type Here..."  onKeyDown={handleInputClick} />
-          <Button onClick={callGemini} type="submit">Generate</Button>
+          <Input onChange={(e) => setValue(e.target.value)}  value={value} placeholder="Type Here..."  onKeyDown={handleInputClick} className="bg-secondary" />
+          <Button className="rounded-full w-12 h-12 text-black text-2xl " onClick={callGemini} type="submit">+</Button>
         </div>
 </section>
         </>
