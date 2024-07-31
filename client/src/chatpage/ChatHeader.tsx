@@ -27,7 +27,7 @@ export default function ChatHeader(){
     }, []);
 
     return (
-        <section className="w-screen h-[10%] flex  items-center justify-center text-2xl bg-secondary text-center justify-center ">
+        <section className="w-screen h-[10%] flex  items-center justify-center text-2xl bg-tprime text-primary justify-center ">
             <div className="absolute left-2 block sm:hidden">
                 <Sheet>
                     <SheetTrigger>+</SheetTrigger>

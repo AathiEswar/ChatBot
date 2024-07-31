@@ -21,8 +21,6 @@ export default function Chat(){
         const textAi = response.text();
         setText(textAi)
         setTextArray((prev) => [...prev , value , textAi ]);
-        console.log(textAi);
-        
         setLoading(false);
 
       }
@@ -40,11 +38,11 @@ export default function Chat(){
     return (
         <>
         <section  className="w-full sm:w-[80%] border-0 border-primary p-4 bg-accent" >
-            <div className="h-[90%] text-white">
+            <div className="h-[90%] text-white flex flex-col">
               {textArray.length < 1 && !loading && "welcome"} 
               {   textArray.map((item,index) => {
                 if(index % 2 == 0){
-                  return <div className="text-right p-2">{item}</div>
+                  return <div className="text-right	p-2  ">{item}</div>
                 }
                 return <div className="p-2 w-[50%]">{item}</div>
               })}
@@ -52,7 +50,10 @@ export default function Chat(){
             </div>
 
         <div className="flex flex-row w-full  items-center justify-evenly h-[10%] gap-4">
-          <Input onChange={(e) => setValue(e.target.value)}  value={value} placeholder="Type Here..."  onKeyDown={handleInputClick} className="bg-secondary" />
+          <Input onChange={(e) => setValue(e.target.value)}  
+                  value={value} placeholder="Type Here..." 
+                  onKeyDown={handleInputClick}
+                  className="bg-secondary rounded-md border-0 text-accent placeholder-tprime" />
           <Button className="rounded-full w-12 h-12 text-black text-2xl " onClick={callGemini} type="submit">+</Button>
         </div>
 </section>

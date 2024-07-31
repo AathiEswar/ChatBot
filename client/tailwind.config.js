@@ -28,6 +28,9 @@ module.exports = {
         ring: "hsl(var(--ring))",
         background: "hsl(var(--background))",
         foreground: "hsl(var(--foreground))",
+        tprime : {
+          DEFAULT : "#4e5c5a",
+        },
         primary: {
           DEFAULT: "#B1D2D1",
           foreground: "hsl(var(--primary-foreground))",
