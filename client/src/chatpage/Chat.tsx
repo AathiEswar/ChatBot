@@ -1,7 +1,8 @@
-import {GenerateContentRequest, GoogleGenerativeAI, Part } from "@google/generative-ai"
-import { useState } from "react";
+import {GoogleGenerativeAI } from "@google/generative-ai"
+import { SetStateAction, useState } from "react";
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
+import TextParser from "@/utilities/TextParser";
 
 export default function Chat(){
 
@@ -19,7 +20,7 @@ export default function Chat(){
         const result = await model.generateContent(value);
         const response = await result.response;
         const textAi = response.text();
-        setText(textAi)
+        // setText(textAi);
         setTextArray((prev) => [...prev , value , textAi ]);
         setLoading(false);
 
@@ -37,16 +38,18 @@ export default function Chat(){
 
     return (
         <>
-        <section  className="w-full sm:w-[80%] border-0 border-primary p-4 bg-accent" >
-            <div className="h-[90%] text-white flex flex-col">
-              {textArray.length < 1 && !loading && "welcome"} 
-              {   textArray.map((item,index) => {
+        <section  className="w-[90%] sm:w-[80%] border-0 border-primary p-4 bg-accent " >
+            <div className="h-[90%] text-white flex flex-col overflow-x-hidden overflow-y-auto">
+              {(textArray.length < 1 && !loading) ? "welcome" :  
+                 textArray.map((item,index) => {
                 if(index % 2 == 0){
-                  return <div className="text-right	p-2  ">{item}</div>
+                  return <div className="text-right	p-x-2  ">{item}</div>
                 }
-                return <div className="p-2 w-[50%]">{item}</div>
+                TextParser(item);
+                return <div  className="p-x-2  w-[90%] sm:w-[70%]  md:w-[50%]" dangerouslySetInnerHTML={{__html : TextParser(item)}}></div>
+                
               })}
-              {loading && "Loading"}
+              {loading && "Loading..."}
             </div>
 
         <div className="flex flex-row w-full  items-center justify-evenly h-[10%] gap-4">
